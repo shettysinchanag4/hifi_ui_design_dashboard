@@ -1,0 +1,393 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@600&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#F7F6F2;
+  --surface:#FFFFFF;
+  --surface2:#F1EFE8;
+  --accent:#534AB7;
+  --accent-light:#EEEDFE;
+  --accent2:#1D9E75;
+  --accent2-light:#E1F5EE;
+  --warn:#BA7517;
+  --warn-light:#FAEEDA;
+  --text1:#2C2C2A;
+  --text2:#5F5E5A;
+  --text3:#888780;
+  --border:#D3D1C7;
+  --radius:12px;
+  --radius-sm:8px;
+}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text1);min-height:100vh}
+.app{display:grid;grid-template-rows:56px 1fr;grid-template-columns:220px 1fr;min-height:600px}
+
+/* NAV */
+.topbar{grid-column:1/-1;background:var(--surface);border-bottom:0.5px solid var(--border);display:flex;align-items:center;padding:0 20px;gap:16px}
+.logo{font-family:'Playfair Display',serif;font-size:20px;color:var(--accent);letter-spacing:-0.5px;margin-right:auto}
+.nav-search{flex:0 0 220px;background:var(--surface2);border:0.5px solid var(--border);border-radius:20px;padding:6px 14px;font-size:13px;color:var(--text2);display:flex;align-items:center;gap:8px}
+.nav-icon{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:background 0.15s}
+.nav-icon:hover{background:var(--surface2)}
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--accent);color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center}
+
+/* SIDEBAR */
+.sidebar{background:var(--surface);border-right:0.5px solid var(--border);padding:20px 12px;display:flex;flex-direction:column;gap:4px}
+.sidebar-section{font-size:10px;font-weight:600;color:var(--text3);letter-spacing:0.08em;text-transform:uppercase;padding:16px 8px 6px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:var(--radius-sm);font-size:13px;color:var(--text2);cursor:pointer;transition:all 0.15s}
+.nav-item:hover{background:var(--surface2);color:var(--text1)}
+.nav-item.active{background:var(--accent-light);color:var(--accent);font-weight:500}
+.nav-icon-sm{width:16px;height:16px;opacity:0.7;flex-shrink:0}
+.nav-item.active .nav-icon-sm{opacity:1}
+.badge{margin-left:auto;background:var(--accent);color:#fff;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px}
+
+/* MAIN */
+.main{padding:24px;overflow-y:auto;display:flex;flex-direction:column;gap:20px}
+.page-header{display:flex;align-items:flex-start;justify-content:space-between}
+.page-title{font-family:'Playfair Display',serif;font-size:26px;color:var(--text1);font-weight:600}
+.page-sub{font-size:13px;color:var(--text3);margin-top:3px}
+.btn-primary{background:var(--accent);color:#fff;border:none;border-radius:var(--radius-sm);padding:9px 18px;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;transition:opacity 0.15s}
+.btn-primary:hover{opacity:0.88}
+.btn-secondary{background:var(--surface);color:var(--text1);border:0.5px solid var(--border);border-radius:var(--radius-sm);padding:9px 18px;font-size:13px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:8px;transition:background 0.15s}
+.btn-secondary:hover{background:var(--surface2)}
+
+/* METRIC CARDS */
+.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.metric{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--radius);padding:16px 18px}
+.metric-label{font-size:11px;font-weight:600;letter-spacing:0.06em;text-transform:uppercase;color:var(--text3)}
+.metric-value{font-size:28px;font-weight:600;color:var(--text1);margin:6px 0 4px;font-family:'Playfair Display',serif}
+.metric-change{font-size:12px;display:flex;align-items:center;gap:4px}
+.up{color:var(--accent2)}
+.down{color:#A32D2D}
+.metric-bar{height:3px;background:var(--surface2);border-radius:2px;margin-top:12px}
+.metric-fill{height:100%;border-radius:2px;transition:width 0.6s ease}
+
+/* CONTENT GRID */
+.content-grid{display:grid;grid-template-columns:1fr 300px;gap:16px}
+.card{background:var(--surface);border:0.5px solid var(--border);border-radius:var(--radius);padding:20px}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+.card-title{font-size:14px;font-weight:600;color:var(--text1)}
+.card-action{font-size:12px;color:var(--accent);cursor:pointer;font-weight:500}
+
+/* CHART MOCK */
+.chart-area{height:140px;display:flex;align-items:flex-end;gap:8px;padding-top:16px}
+.bar-wrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px}
+.bar{width:100%;border-radius:4px 4px 0 0;transition:height 0.5s ease}
+.bar-label{font-size:10px;color:var(--text3)}
+.chart-legend{display:flex;gap:16px;margin-top:12px}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--text2)}
+.legend-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+
+/* ACTIVITY */
+.activity-list{display:flex;flex-direction:column;gap:0}
+.activity-item{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:0.5px solid var(--border)}
+.activity-item:last-child{border-bottom:none}
+.activity-avatar{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
+.activity-text{font-size:12px;color:var(--text2);line-height:1.5;flex:1}
+.activity-text b{color:var(--text1);font-weight:500}
+.activity-time{font-size:11px;color:var(--text3);flex-shrink:0}
+
+/* TASKS */
+.task-item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:0.5px solid var(--border)}
+.task-item:last-child{border-bottom:none}
+.task-check{width:16px;height:16px;border:1.5px solid var(--border);border-radius:4px;flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.task-check.done{background:var(--accent2);border-color:var(--accent2)}
+.task-info{flex:1}
+.task-name{font-size:13px;color:var(--text1)}
+.task-name.done{text-decoration:line-through;color:var(--text3)}
+.task-meta{font-size:11px;color:var(--text3);margin-top:2px}
+.pill{display:inline-flex;align-items:center;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.05em}
+.pill-purple{background:var(--accent-light);color:#3C3489}
+.pill-green{background:var(--accent2-light);color:#085041}
+.pill-amber{background:var(--warn-light);color:#633806}
+.pill-red{background:#FCEBEB;color:#791F1F}
+
+/* BOTTOM */
+.bottom-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.progress-item{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.progress-label{font-size:12px;color:var(--text2);flex:1;min-width:80px}
+.progress-track{flex:2;height:6px;background:var(--surface2);border-radius:3px}
+.progress-fill{height:100%;border-radius:3px;transition:width 0.6s ease}
+.progress-pct{font-size:12px;font-weight:500;color:var(--text1);min-width:32px;text-align:right}
+</style>
+
+<div class="app">
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <span class="logo">Lumina</span>
+    <div class="nav-search">
+      <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#888780" stroke-width="1.5"/><path d="M11 11l3 3" stroke="#888780" stroke-width="1.5" stroke-linecap="round"/></svg>
+      Search anything…
+    </div>
+    <div class="nav-icon">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2a4.5 4.5 0 014.5 4.5c0 2.5.7 3.5 1.5 4H2c.8-.5 1.5-1.5 1.5-4A4.5 4.5 0 018 2z" stroke="#5F5E5A" stroke-width="1.3"/><path d="M6.5 13.5a1.5 1.5 0 003 0" stroke="#5F5E5A" stroke-width="1.3"/></svg>
+    </div>
+    <div class="nav-icon">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="5" height="5" rx="1.5" stroke="#5F5E5A" stroke-width="1.3"/><rect x="9" y="2" width="5" height="5" rx="1.5" stroke="#5F5E5A" stroke-width="1.3"/><rect x="2" y="9" width="5" height="5" rx="1.5" stroke="#5F5E5A" stroke-width="1.3"/><rect x="9" y="9" width="5" height="5" rx="1.5" stroke="#5F5E5A" stroke-width="1.3"/></svg>
+    </div>
+    <div class="avatar">SK</div>
+  </header>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <div class="sidebar-section">Workspace</div>
+    <div class="nav-item active">
+      <svg class="nav-icon-sm" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="5.5" height="5.5" rx="1.5" fill="#534AB7"/><rect x="9" y="1.5" width="5.5" height="5.5" rx="1.5" fill="#534AB7"/><rect x="1.5" y="9" width="5.5" height="5.5" rx="1.5" fill="#534AB7"/><rect x="9" y="9" width="5.5" height="5.5" rx="1.5" fill="#534AB7"/></svg>
+      Overview
+    </div>
+    <div class="nav-item">
+      <svg class="nav-icon-sm" viewBox="0 0 16 16" fill="none"><path d="M2 11l4-4 3 3 5-6" stroke="#5F5E5A" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      Analytics
+    </div>
+    <div class="nav-item">
+      <svg class="nav-icon-sm" viewBox="0 0 16 16" fill="none"><path d="M8 1.5L10 6h4.5l-3.5 2.5 1.5 4.5L8 10.5l-4.5 2.5 1.5-4.5L1.5 6H6z" stroke="#5F5E5A" stroke-width="1.3"/></svg>
+      Projects
+      <span class="badge">4</span>
+    </div>
+    <div class="nav-item">
+      <svg class="nav-icon-sm" viewBox="0 0 16 16" fill="none"><rect x="2" y="3" width="12" height="10" rx="2" stroke="#5F5E5A" stroke-width="1.3"/><path d="M5 7h6M5 10h4" stroke="#5F5E5A" stroke-width="1.3" stroke-linecap="round"/></svg>
+      Tasks
+    </div>
+    <div class="sidebar-section">Team</div>
+    <div class="nav-item">
+      <svg class="nav-icon-sm" viewBox="0 0 16 16" fill="none"><circle cx="6" cy="5.5" r="2.5" stroke="#5F5E5A" stroke-width="1.3"/><path d="M1.5 13c0-2.5 2-4 4.5-4s4.5 1.5 4.5 4" stroke="#5F5E5A" stroke-width="1.3" stroke-linecap="round"/><circle cx="12" cy="5.5" r="2" stroke="#5F5E5A" stroke-width="1.3"/><path d="M14.5 13c0-2-1.3-3.2-2.5-3.5" stroke="#5F5E5A" stroke-width="1.3" stroke-linecap="round"/></svg>
+      Members
+    </div>
+    <div class="nav-item">
+      <svg class="nav-icon-sm" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#5F5E5A" stroke-width="1.3"/><path d="M8 5v3l2 2" stroke="#5F5E5A" stroke-width="1.3" stroke-linecap="round"/></svg>
+      Reports
+    </div>
+    <div class="nav-item" style="margin-top:auto">
+      <svg class="nav-icon-sm" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="6" stroke="#5F5E5A" stroke-width="1.3"/><path d="M8 5.5v3M8 10.5v.5" stroke="#5F5E5A" stroke-width="1.4" stroke-linecap="round"/></svg>
+      Settings
+    </div>
+  </aside>
+
+  <!-- MAIN CONTENT -->
+  <main class="main">
+    <!-- Header -->
+    <div class="page-header">
+      <div>
+        <div class="page-title">Good morning, Sana</div>
+        <div class="page-sub">Here's what's happening with your projects today.</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn-secondary">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><rect x="2" y="4" width="12" height="9" rx="1.5" stroke="#5F5E5A" stroke-width="1.3"/><path d="M5 4V3a1 1 0 012 0v1M9 4V3a1 1 0 012 0v1M2 8h12" stroke="#5F5E5A" stroke-width="1.3" stroke-linecap="round"/></svg>
+          Schedule
+        </button>
+        <button class="btn-primary">
+          <svg width="13" height="13" viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+          New Project
+        </button>
+      </div>
+    </div>
+
+    <!-- Metrics -->
+    <div class="metrics">
+      <div class="metric">
+        <div class="metric-label">Revenue</div>
+        <div class="metric-value">$84.2k</div>
+        <div class="metric-change up">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 8V2M2 5l3-3 3 3" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          12.4% this month
+        </div>
+        <div class="metric-bar"><div class="metric-fill" style="width:72%;background:var(--accent2)"></div></div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Active Users</div>
+        <div class="metric-value">3,291</div>
+        <div class="metric-change up">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 8V2M2 5l3-3 3 3" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          8.1% from last week
+        </div>
+        <div class="metric-bar"><div class="metric-fill" style="width:58%;background:var(--accent)"></div></div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Open Tasks</div>
+        <div class="metric-value">47</div>
+        <div class="metric-change down">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 2v6M2 5l3 3 3-3" stroke="#A32D2D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          3 overdue
+        </div>
+        <div class="metric-bar"><div class="metric-fill" style="width:40%;background:#E24B4A"></div></div>
+      </div>
+      <div class="metric">
+        <div class="metric-label">Completion</div>
+        <div class="metric-value">68%</div>
+        <div class="metric-change up">
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M5 8V2M2 5l3-3 3 3" stroke="#1D9E75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          +5% vs last sprint
+        </div>
+        <div class="metric-bar"><div class="metric-fill" style="width:68%;background:var(--warn)"></div></div>
+      </div>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="content-grid">
+      <!-- Chart -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Revenue Overview</div>
+          <div style="display:flex;gap:8px">
+            <span class="pill pill-purple" style="cursor:pointer">Weekly</span>
+            <span class="pill" style="background:var(--surface2);color:var(--text2);cursor:pointer">Monthly</span>
+          </div>
+        </div>
+        <div class="chart-area" id="barChart"></div>
+        <div class="chart-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:var(--accent)"></div>Revenue</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--accent2)"></div>Target</div>
+        </div>
+      </div>
+
+      <!-- Activity -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Recent Activity</div>
+          <span class="card-action">View all</span>
+        </div>
+        <div class="activity-list">
+          <div class="activity-item">
+            <div class="activity-avatar" style="background:#EEEDFE;color:#3C3489">AL</div>
+            <div class="activity-text"><b>Alex Lee</b> completed the design review for <b>Onboarding v2</b></div>
+            <div class="activity-time">2m</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-avatar" style="background:#E1F5EE;color:#085041">PK</div>
+            <div class="activity-text"><b>Priya K.</b> pushed 3 commits to <b>main</b></div>
+            <div class="activity-time">18m</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-avatar" style="background:#FAEEDA;color:#633806">RC</div>
+            <div class="activity-text"><b>Raj C.</b> added a comment on <b>Sprint 12</b></div>
+            <div class="activity-time">1h</div>
+          </div>
+          <div class="activity-item">
+            <div class="activity-avatar" style="background:#FCEBEB;color:#791F1F">MN</div>
+            <div class="activity-text"><b>Maya N.</b> flagged a blocker in <b>API Integration</b></div>
+            <div class="activity-time">3h</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom Row -->
+    <div class="bottom-row">
+      <!-- Tasks -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">My Tasks</div>
+          <span class="card-action">+ Add task</span>
+        </div>
+        <div>
+          <div class="task-item">
+            <div class="task-check done">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div class="task-info">
+              <div class="task-name done">Finalize component library</div>
+              <div class="task-meta">Design · <span class="pill pill-green">Done</span></div>
+            </div>
+          </div>
+          <div class="task-item">
+            <div class="task-check"></div>
+            <div class="task-info">
+              <div class="task-name">Review API documentation</div>
+              <div class="task-meta">Engineering · <span class="pill pill-amber">In Progress</span></div>
+            </div>
+          </div>
+          <div class="task-item">
+            <div class="task-check"></div>
+            <div class="task-info">
+              <div class="task-name">Prepare stakeholder deck</div>
+              <div class="task-meta">Management · <span class="pill pill-purple">Planned</span></div>
+            </div>
+          </div>
+          <div class="task-item">
+            <div class="task-check"></div>
+            <div class="task-info">
+              <div class="task-name">Fix auth token expiry bug</div>
+              <div class="task-meta">Engineering · <span class="pill pill-red">Overdue</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">Project Health</div>
+          <span class="card-action">Details</span>
+        </div>
+        <div id="progressList"></div>
+        <div style="margin-top:16px;padding-top:16px;border-top:0.5px solid var(--border)">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:12px;color:var(--text2)">Overall sprint velocity</span>
+            <span style="font-size:18px;font-weight:600;color:var(--text1);font-family:'Playfair Display',serif">87pts</span>
+          </div>
+          <div style="margin-top:8px;height:6px;background:var(--surface2);border-radius:3px">
+            <div style="width:73%;height:100%;background:linear-gradient(90deg,var(--accent) 0%,var(--accent2) 100%);border-radius:3px"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:4px">
+            <span style="font-size:10px;color:var(--text3)">Target: 120pts</span>
+            <span style="font-size:10px;color:var(--accent2);font-weight:500">73% achieved</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+const bars=[
+  {label:'Mon',rev:62,tgt:70},{label:'Tue',rev:78,tgt:70},{label:'Wed',rev:55,tgt:70},
+  {label:'Thu',rev:90,tgt:70},{label:'Fri',rev:83,tgt:70},{label:'Sat',rev:40,tgt:70},{label:'Sun',rev:30,tgt:70}
+];
+const maxVal=Math.max(...bars.map(b=>Math.max(b.rev,b.tgt)));
+const chart=document.getElementById('barChart');
+bars.forEach(b=>{
+  const wrap=document.createElement('div');
+  wrap.className='bar-wrap';
+  const pairDiv=document.createElement('div');
+  pairDiv.style.cssText='display:flex;align-items:flex-end;gap:3px;height:120px;width:100%';
+  const revH=Math.round((b.rev/maxVal)*110);
+  const tgtH=Math.round((b.tgt/maxVal)*110);
+  const revBar=document.createElement('div');
+  revBar.className='bar';
+  revBar.style.cssText=`height:${revH}px;background:var(--accent);flex:1`;
+  const tgtBar=document.createElement('div');
+  tgtBar.className='bar';
+  tgtBar.style.cssText=`height:${tgtH}px;background:var(--accent2-light);border:1px solid var(--accent2);flex:1`;
+  pairDiv.appendChild(revBar);pairDiv.appendChild(tgtBar);
+  const lbl=document.createElement('div');
+  lbl.className='bar-label';lbl.textContent=b.label;
+  wrap.appendChild(pairDiv);wrap.appendChild(lbl);
+  chart.appendChild(wrap);
+});
+
+const projects=[
+  {name:'Web Redesign',pct:82,color:'var(--accent)'},
+  {name:'Mobile App',pct:55,color:'var(--accent2)'},
+  {name:'API v3',pct:38,color:'var(--warn)'},
+  {name:'Analytics',pct:91,color:'#1D9E75'},
+];
+const pList=document.getElementById('progressList');
+projects.forEach(p=>{
+  const row=document.createElement('div');
+  row.className='progress-item';
+  row.innerHTML=`<span class="progress-label">${p.name}</span><div class="progress-track"><div class="progress-fill" style="width:${p.pct}%;background:${p.color}"></div></div><span class="progress-pct">${p.pct}%</span>`;
+  pList.appendChild(row);
+});
+
+document.querySelectorAll('.task-check:not(.done)').forEach(c=>{
+  c.addEventListener('click',()=>{
+    c.classList.toggle('checked');
+    if(c.classList.contains('checked')){
+      c.style.background='var(--accent2)';c.style.borderColor='var(--accent2)';
+      c.innerHTML='<svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+    }else{
+      c.style.background='';c.style.borderColor='';c.innerHTML='';
+    }
+  });
+});
+</script>
